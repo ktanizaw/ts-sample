@@ -2,9 +2,14 @@ export const state = () => ({
   list: [{
     id: 1,
     name: 'リスト１'
-  }]
+  }],
+  todoCounter: 0
 })
-
+export const actions = {
+  todoIncrement(context) {
+    context.commit("todoIncrement")
+  }
+}
 export const mutations = {
   add(state, text) {
     state.list.push({

@@ -11,16 +11,17 @@
     <AddTodo
       @add="addTodo"
     />
+  
+    <button @click="increment()">indexのincrementアクション</button>
+    <button @click="todoIncrement()">todosのincrementアクション</button>
     {{ store.state }}
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed } from '@nuxtjs/composition-api'
+import { defineComponent, reactive, computed, useStore } from '@nuxtjs/composition-api'
 import TodoList from '../../components/TodoList.vue'
 import AddTodo from '../../components/AddTodo.vue'
-import { mapMutations } from 'vuex'
-import { useStore } from 'vuex';
 
 interface Todo {
   id: number;
@@ -39,7 +40,6 @@ export default defineComponent({
     AddTodo
   },
   setup() {
-console.log();
     const store = useStore()
     const state = reactive<State>({
       todos:[{
@@ -74,13 +74,34 @@ console.log();
       if (!todo) return
       todo.done = !todo.done
     }
+
+    // const todoIncrement = () =>{
+    //   store.dispatch('todoIncrement');
+    // }
+
+    // const makeQuery = () => {
+    //   interface Query {
+    //     id: number;
+    //     name: string;
+    //   }
+    //   var query: Query;
+    //   let query = {
+    //     id: 1,
+    //     name: 'test'
+    //   }
+    // }
+
     return {
       store,
       state,
       sortTodo,
       addTodo,
       removeTodo,
-      toggleTodo
+      toggleTodo,
+      // makeQuery,
+      increment: () => store.commit('increment'),
+      // todoIncrement,
+      todoIncrement: () => store.commit('todoIncrement')
     }
   }
 })
