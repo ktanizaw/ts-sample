@@ -15,6 +15,7 @@
     <button @click="increment()">indexのincrementアクション</button>
     <button @click="todoIncrement()">todosのincrementアクション</button>
     {{ store.state }}
+    <button @click="makeQuery()">makeQuery</button>
   </div>
 </template>
 
@@ -33,7 +34,10 @@ interface Todo {
 interface State {
   todos: Todo[];
 }
-
+type Query = {
+  id: number;
+  name: string;
+}
 export default defineComponent({
   components: {
     TodoList,
@@ -79,17 +83,15 @@ export default defineComponent({
     //   store.dispatch('todoIncrement');
     // }
 
-    // const makeQuery = () => {
-    //   interface Query {
-    //     id: number;
-    //     name: string;
-    //   }
-    //   var query: Query;
-    //   let query = {
-    //     id: 1,
-    //     name: 'test'
-    //   }
-    // }
+    const makeQuery = () => {
+      let query: Query = {
+        id: 1,
+        name: 'test'
+      }
+      console.log(query);
+      
+      return query;
+    }
 
     return {
       store,
@@ -98,7 +100,7 @@ export default defineComponent({
       addTodo,
       removeTodo,
       toggleTodo,
-      // makeQuery,
+      makeQuery,
       increment: () => store.commit('increment'),
       // todoIncrement,
       todoIncrement: () => store.commit('todoIncrement')
